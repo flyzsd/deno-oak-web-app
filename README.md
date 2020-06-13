@@ -5,7 +5,7 @@
 deno run --allow-net server.ts
 `
 
-######Runtime verification with dependencies
+Runtime verification with dependencies
 `
 deno run --lock=lock.json --cached-only --allow-net server.ts
 `
@@ -15,7 +15,7 @@ deno run --lock=lock.json --cached-only --allow-net server.ts
 deno cache --reload server.ts
 `
 
-#####Download the project's dependencies into the machine's cache, integrity checking each resource.
+Download the project's dependencies into the machine's cache, integrity checking each resource.
 `
 deno cache --reload --lock=lock.json server.ts
 `
