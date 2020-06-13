@@ -1,4 +1,7 @@
 import {Context, Request, Response, Router} from 'https://deno.land/x/oak/mod.ts';
+import {delay} from "https://deno.land/std/async/mod.ts";
+import {v4} from "https://deno.land/std/uuid/mod.ts";
+import * as log from "https://deno.land/std/log/mod.ts";
 import {Product} from "./types.ts";
 
 const router = new Router();
@@ -6,18 +9,19 @@ export const controller = new AbortController();
 
 const shutdown = ({request, response}: Context) => {
     try {
-        console.warn(`shut down now ... => ${request}`);
+        log.warning(`shut down now ... => ${request}`);
+        delay(1000);
         controller.abort();
         response.status = 200;
     } catch (error) {
-        console.error(error);
+        log.error(error);
         response.status = 500;
     }
 };
 
 const getProductById = ({params, request, response}: { params: any, request: Request, response: Response }) => {
     try {
-        console.log(`getProductById => params = ${params}, request = ${request}`);
+        log.info(`getProductById => params = ${params}, request = ${request}`);
         const {id} = params;
         const product: Product = {
             id,
@@ -29,23 +33,24 @@ const getProductById = ({params, request, response}: { params: any, request: Req
         response.status = 200;
         response.body = product;
     } catch (error) {
-        console.error(error);
+        log.error(error);
         response.status = 500;
     }
 };
 
 const addProduct = async ({request, response}: Context) => {
     try {
-        console.log(`addProduct => request = ${request}`);
+        log.info(`addProduct => request = ${request}`);
         const body = await request.body();
         const product: Product = body.value;
         response.status = 200;
         response.body = {
             ...product,
+            id: v4.generate(),
             outOfStock: false
         };
     } catch (error) {
-        console.error(error);
+        log.error(error);
         response.status = 500;
     }
 };
