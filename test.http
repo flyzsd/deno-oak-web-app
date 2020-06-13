@@ -1,0 +1,19 @@
+POST http://localhost:8000/shutdown
+
+###
+GET http://localhost:8000
+
+###
+GET http://localhost:8000/products/1
+
+###
+POST http://localhost:8000/products
+Content-Type: application/json
+
+{
+  "id":"122",
+  "name":"Product Three",
+  "description":"This is product three",
+  "price":199.99,
+  "outOfStock":false
+}
