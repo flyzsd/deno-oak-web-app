@@ -1,5 +1,8 @@
 # Simple Web Server using Deno and Oak
 
+## IDE
+Recommend to use VS code with deno plugin
+
 ## How to run the program?
 `
 deno run --allow-net server.ts
