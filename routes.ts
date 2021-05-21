@@ -41,8 +41,8 @@ const getProductById = ({params, request, response}: { params: any, request: Req
 const addProduct = async ({request, response}: Context) => {
     try {
         log.info(`addProduct => request = ${request}`);
-        const body = await request.body();
-        const product: Product = body.value;
+        const body = request.body();
+        const product: Product = await body.value;
         response.status = 200;
         response.body = {
             ...product,
